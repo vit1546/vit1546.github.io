@@ -1,5 +1,9 @@
 <textarea width="600" height="400"></textarea>
+<button onclick="addEl()">click</button>
 <script>
-	
-
+function addEl(){
+	var el = document.createElement("textarea");
+	var body = document.getElementsByTagName("body")[0];
+	body.appendChild(el);
+}
 </script>
