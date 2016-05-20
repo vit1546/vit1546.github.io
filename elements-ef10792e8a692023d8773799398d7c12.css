@@ -6096,9 +6096,10 @@ html[data-rtl-language='true'] .voice_webrtc_settings_modal {
 /*
  * Our styles
  */
+ /*
 .redactor-editor img {
   cursor: pointer; }
-
+*/
 .redactor-toolbar {
   padding: 0px;
   margin: 0px;
