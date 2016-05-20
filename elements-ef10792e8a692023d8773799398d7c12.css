@@ -6096,10 +6096,10 @@ html[data-rtl-language='true'] .voice_webrtc_settings_modal {
 /*
  * Our styles
  */
- 
+ /*
 .redactor-editor img {
   cursor: pointer; }
-
+*/
 .redactor-toolbar {
   padding: 0px;
   margin: 0px;
@@ -6128,7 +6128,7 @@ div.redactor-dropdown-box-formatting > a:not(.redactor-act):not(:hover), div.red
 
 div.redactor-dropdown-box-formatting .redactor-formatting-pre, div.redactor-dropdown-box-formatting .redactor-formatting-blockquote, div.redactor-dropdown-box-alignment .redactor-formatting-pre, div.redactor-dropdown-box-alignment .redactor-formatting-blockquote {
   display: none; }
-
+/*
 .redactor-editor img:hover {
   opacity: 0.5;
   outline: 1px dashed #78A300; }
@@ -6136,7 +6136,7 @@ div.redactor-dropdown-box-formatting .redactor-formatting-pre, div.redactor-drop
 .redactor-editor #redactor-image-box img:hover {
   opacity: inherit;
   outline: none; }
-
+*/
 .zendesk-editor--rich-text-comment, .zendesk-editor--plaintext-box .zendesk-editor--plain-text-comment {
   display: block;
   padding: 10px 10px 90px 10px;
@@ -6741,9 +6741,10 @@ div.redactor-dropdown-box-formatting .redactor-formatting-pre, div.redactor-drop
 /*
  * Our styles
  */
+ /*
 .redactor-editor img {
   cursor: pointer; }
-
+*/
 .redactor-toolbar {
   padding: 0px;
   margin: 0px;
@@ -6772,7 +6773,7 @@ div.redactor-dropdown-box-formatting > a:not(.active):not(:hover), div.redactor-
 
 div.redactor-dropdown-box-formatting .redactor-formatting-pre, div.redactor-dropdown-box-formatting .redactor-formatting-blockquote, div.redactor-dropdown-box-alignment .redactor-formatting-pre, div.redactor-dropdown-box-alignment .redactor-formatting-blockquote {
   display: none; }
-
+/*
 .redactor-editor img:hover {
   opacity: 0.5;
   outline: 1px dashed #78A300; }
@@ -6780,7 +6781,7 @@ div.redactor-dropdown-box-formatting .redactor-formatting-pre, div.redactor-drop
 .redactor-editor #redactor-image-box img:hover {
   opacity: inherit;
   outline: none; }
-
+*/
 .zendesk-editor--rich-text-comment, .zendesk-editor--plaintext-box .zendesk-editor--plain-text-comment {
   display: block;
   padding: 10px 10px 90px 10px;
