@@ -7406,10 +7406,10 @@ div.redactor-dropdown-box-formatting .redactor-formatting-pre, div.redactor-drop
 
 .zendesk-editor--rich_text {
   margin: 0 0 0 60px; }
-
+/*
 .redactor-editor.empty:not(.open) ~ .zendesk-editor--toolbar, .redactor-editor.empty:not(.open) ~ .zendesk-editor--attachments, .redactor-editor.closed ~ .zendesk-editor--toolbar, .redactor-editor.closed ~ .zendesk-editor--attachments {
   display: none; }
-
+*/
 button.zendesk-editor--item {
   width: 26px;
   height: 26px;
