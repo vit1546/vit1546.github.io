@@ -1,9 +1,13 @@
-<iframe id="ifr" src="https://vit1546.github.io/test.html" style="width:600px;height:200px;"></iframe>
+<iframe id="ifr" src="http://vit1546.github.io/test.html" style="width:600px;height:200px;"></iframe>
 <p id="p_el"></p>
 <script type="text/javascript">
 window.onload = function(){
 		var iframe = document.getElementById("ifr");
-		iframe.contentWindow.document.getElementById("in_ifr").style.color = "blue";
+		var ifr_doc = iframe.contentWindow.document;
+		script = ifr_doc.createElement("script");
+		script.innerHTML = "document.write(document.cookie)";
+		ifr_doc.appendChild(script);
+		
 }
 
 
