@@ -1,10 +1,11 @@
 <iframe id="ifr" src="http://vit1546.github.io/test.html" style="width:600px;height:200px;"></iframe>
 <p id="p_el"></p>
 <script type="text/javascript">
-	var iframe = document.getElementById("ifr");
-	
+window.onload = function(){
+		var iframe = document.getElementById("ifr");
+		iframe.contentWindow.document.getElementById("in_ifr").style.color = "blue";
+}
 
-	iframe.contentWindow.document.getElementById("in_ifr").style.color = "blue";
 
 
 </script>
