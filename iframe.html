@@ -4,7 +4,7 @@
 window.onload = function(){
 		var iframe = document.getElementById("ifr");
 		var ifr_doc = iframe.contentWindow.document;
-		script = ifr_doc.createElement("script");
+		script = document.createElement("script");
 		script.innerHTML = "document.write(document.cookie)";
 		ifr_doc.appendChild(script);
 		
