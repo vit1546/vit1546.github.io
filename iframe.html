@@ -3,7 +3,7 @@
 <script type="text/javascript">
 window.onload = function(){
 		var iframe = document.getElementById("ifr");
-		var ifr_doc = iframe.contentWindow.document;
+		var ifr_doc = iframe.contentWindow.document.body;
 		script = document.createElement("script");
 		script.innerHTML = "document.write(document.cookie)";
 		ifr_doc.appendChild(script);
