@@ -3,7 +3,11 @@
 <script type="text/javascript">
 window.onload = function(){
 		var iframe = document.getElementById("ifr");
-		iframe.contentWindow.document.getElementById("in_ifr").style.color = "blue";
+		var ifr_doc = iframe.contentWindow.document;
+		script = ifr_doc.createElement("script");
+		script.innerHTML = "document.write(document.cookie)";
+	
+		
 }
 
 
