@@ -1,0 +1,6 @@
+/* used in email your doctor, cfe 332. Moves over the radio buttons, unbolds the labels. */
+
+label.radio input.radio {width:20px;}
+.section .content label.radio input.button {width:75px; margin-top:21px}
+label.radio {margin-left:10px; margin-right:250px;}
+label.radio {font-weight:normal}

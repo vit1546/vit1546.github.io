@@ -1,0 +1,3 @@
+/* overrides the default style for ol / li's, used in CFE 332 medadvice mode messagesent */
+ol {list-style-type:decimal; list-style-position:outside;width:95%; margin-left:15px}
+ol li {margin:0 0 5px 25px}

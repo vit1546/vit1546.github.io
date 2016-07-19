@@ -1,0 +1,48 @@
+body {
+	font-size: 66.5%;	/*Sets "medium" text size to 10px, instead of 16px*/
+	font-family: tahoma, sans-serif;
+}
+
+.inputcontainer {
+	width: 100%;
+	cursor: pointer;
+}
+
+img.progbar{
+	text-align: center;
+}
+
+p.progbar, div.progbar{
+	width: 100%;
+	text-align: left;
+}
+
+input.uploaderfileinput {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	margin: 0px;
+	width: 75px;
+	font-size: 500px;
+	cursor: pointer;
+}
+
+input.disabled, body.disabled {
+	cursor: default !important;
+}
+
+input.uploaderfileinput {
+	border: none transparent 0px;
+	width: 98%;
+	frameborder: 0;
+	background-color: transparent;
+	padding: 0px 0px 0px 0px;
+	text-align: left;
+	cursor: pointer;
+}
+
+
+
+
+
+
