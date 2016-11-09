@@ -41,7 +41,7 @@
 
 			}else if(htmlClass.indexOf(htmlClassToCompare) > -1
 				&& grammarlyBtns.length > 0
-				&& grammarlyBtns.childNodes[0].className.indexOf("-offline") > -1
+				&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") > -1
 				&& textDiv.getAttribute("data-gramm") != "undefined"){
 
 				console.log("offline");
