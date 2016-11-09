@@ -27,9 +27,27 @@
 	</div>
 	<script type="text/javascript">
 		function testExtension(){
-			var buttonDivclass = document.getElementsByTagName("grammarly-btn")[0].childNodes[0].getClass();
-			if(buttonDivclass.indexOf("has_erros") > -1){
+			var textDiv = document.getElementById("test-div");
+			var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
+			var htmlClass = document.getElementsByTagName("html")[0].className;
+			var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
 
+			if(htmlClass.indexOf(htmlClassToCompare) > -1
+				&& grammarlyBtns.length > 0
+				&& grammarlyBtns.childNodes[0].className.indexOf("-offline") == -1
+				&& textDiv.getAttribute("data-gramm") != "undefined"){
+
+				console.log("works okay");
+
+			}else if(htmlClass.indexOf(htmlClassToCompare) > -1
+				&& grammarlyBtns.length > 0
+				&& grammarlyBtns.childNodes[0].className.indexOf("-offline") > -1
+				&& textDiv.getAttribute("data-gramm") != "undefined"){
+
+				console.log("offline");
+
+			}else{
+				console.log("disable or not installed");
 			}
 		}
 		window.onload = function() {
