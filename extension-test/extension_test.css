@@ -543,7 +543,7 @@ body {
     line-height: 50px;
 	padding: 0px 10px;
     background: rgb(244, 245, 249);
-    display: none;
+    visibility: hidden;
 }
 #test-div-wrapper{
     position:relative
