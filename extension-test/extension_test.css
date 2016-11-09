@@ -538,12 +538,12 @@ body {
 .tests .failed {
     background: rgba(224, 79, 66, .6)
 }
-.test-div {
+#test-div {
 	height: 50px;
 	padding: 10px;
 	background: rgb(244, 245, 249);
 }
-.test-div-wrapper{
+#test-div-wrapper{
     position:relative
 }
 

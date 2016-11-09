@@ -17,8 +17,8 @@
 			<span class="title">Browser Extension Test</span>
 			<div class="tests">
 				<p>Type a senetence in the text box below.</p>
-				<div class="test-div-wrapper">
-					<div id="test-div" class="test-div" contenteditable="true">A sentense with some words mispelled.</div>
+				<div id="test-div-wrapper">
+					<div id="test-div" contenteditable="true"></div>
 				</div>
 				<p>Make sure there is a Grammarly icon in the bottom right corner and that misspelled words are underlined, as in the image below.</p>
 				<img src="test-result.png"/>
@@ -26,6 +26,12 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+		function testExtension(){
+			var buttonDivclass = document.getElementsByTagName("grammarly-btn")[0].childNodes[0].getClass();
+			if(buttonDivclass.indexOf("has_erros") > -1){
+
+			}
+		}
 		window.onload = function() {
 		    document.getElementById("test-div").focus();
 		};
