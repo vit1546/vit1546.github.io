@@ -540,8 +540,9 @@ body {
 }
 #test-div {
 	height: 50px;
-	padding: 10px;
-	background: rgb(244, 245, 249);
+    line-height: 50px;
+	padding: 0px 10px;
+    background: rgb(244, 245, 249);
 }
 #test-div-wrapper{
     position:relative

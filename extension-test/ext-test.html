@@ -18,7 +18,7 @@
 			<div class="tests">
 				<p>Type a senetence in the text box below.</p>
 				<div id="test-div-wrapper">
-					<div id="test-div" contenteditable="true"></div>
+					<div id="test-div" contenteditable="true">Test sentence with no words misspelled.</div>
 				</div>
 				<p>Make sure there is a Grammarly icon in the bottom right corner and that misspelled words are underlined, as in the image below.</p>
 				<img src="test-result.png"/>
@@ -26,33 +26,33 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		function testExtension(){
-			var textDiv = document.getElementById("test-div");
-			var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
-			var htmlClass = document.getElementsByTagName("html")[0].className;
-			var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
 
-			if(htmlClass.indexOf(htmlClassToCompare) > -1
-				&& grammarlyBtns.length > 0
-				&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") == -1
-				&& textDiv.getAttribute("data-gramm") != "undefined"){
-
-				console.log("works okay");
-
-			}else if(htmlClass.indexOf(htmlClassToCompare) > -1
-				&& grammarlyBtns.length > 0
-				&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") > -1
-				&& textDiv.getAttribute("data-gramm") != "undefined"){
-
-				console.log("offline");
-
-			}else{
-				console.log("disable or not installed");
-			}
-		}
 		window.onload = function() {
 		    document.getElementById("test-div").focus();
-		    setTimeout(testExtension, 2000);
+		    setTimeout(function(){
+		    	var textDiv = document.getElementById("test-div");
+				var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
+				var htmlClass = document.getElementsByTagName("html")[0].className;
+				var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
+
+				if(htmlClass.indexOf(htmlClassToCompare) > -1
+					&& grammarlyBtns.length > 0
+					&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") == -1
+					&& textDiv.getAttribute("data-gramm") != "undefined"){
+
+					console.log("works okay");
+
+				}else if(htmlClass.indexOf(htmlClassToCompare) > -1
+					&& grammarlyBtns.length > 0
+					&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") > -1
+					&& textDiv.getAttribute("data-gramm") != "undefined"){
+
+					console.log("offline");
+
+				}else{
+					console.log("disabled or not installed");
+				}
+			}, 2000);
 		};
 
 	</script>
