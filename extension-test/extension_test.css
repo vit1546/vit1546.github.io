@@ -539,10 +539,7 @@ body {
     background: rgba(224, 79, 66, .6)
 }
 #test-div {
-	height: 50px;
     line-height: 50px;
-	padding: 0px 10px;
-    background: rgb(244, 245, 249);
 }
 #test-div-wrapper{
     position:relative;
