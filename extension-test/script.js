@@ -1,35 +1,36 @@
 function fadeOutRedirect(type){
-	$('#progressbar').fadeOut(200, function() {
-		$(this).html("Redirecting...").fadeIn(200);
-	});
-	if(/chrome/i.test(navigator.userAgent)){
-		if(type == "ok"){
-			document.location.href = "";
-		}
-		else if(type == "offline"){
-			document.location.href = "";
-		}else{
-			document.location.href = "";
-		}
-	}else if(/firefox/i.test(navigator.userAgent)){
-		if(type == "ok"){
-			document.location.href = "";
-		}
-		else if(type == "offline"){
-			document.location.href = "";
-		}else{
+	$('#progressbar').fadeOut(500, function() {
+		$(this).html("Redirecting...").fadeIn(1500,function(){
+			if(/chrome/i.test(navigator.userAgent)){
+				if(type == "ok"){
+					document.location.href = "";
+				}
+				else if(type == "offline"){
+					document.location.href = "";
+				}else{
+					document.location.href = "";
+				}
+			}else if(/firefox/i.test(navigator.userAgent)){
+				if(type == "ok"){
+					document.location.href = "";
+				}
+				else if(type == "offline"){
+					document.location.href = "";
+				}else{
 
-		}
-	}else if(/safari/i.test(navigator.userAgent)){
-		if(type == "ok"){
-			document.location.href = "";
-		}
-		else if(type == "offline"){
-			document.location.href = "";
-		}else{
-			document.location.href = "";
-		}
-	}
+				}
+			}else if(/safari/i.test(navigator.userAgent)){
+				if(type == "ok"){
+					document.location.href = "";
+				}
+				else if(type == "offline"){
+					document.location.href = "";
+				}else{
+					document.location.href = "";
+				}
+			}
+		});
+	});	
 }
 
 window.onload = function() {
@@ -70,7 +71,7 @@ window.onload = function() {
 		strokeWidth: 4,
 		trailWidth: 1,
 		easing: 'easeInOut',
-		duration: 2500,
+		duration: 3000,
 		text: {
 			autoStyleContainer: false
 		},
