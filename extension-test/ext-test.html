@@ -7,54 +7,29 @@
 <title>Browser Extension Test | Grammarly</title>
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/kbfnbcaeplbcioakkpcpgfkobkghlhen">
 <link rel="stylesheet" media="all" href="extension_test.css">
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="progressbar.min.js"></script>
+<script type="text/javascript"src="jquery.min.js"></script>
+<script type="text/javascript"src="script.js"></script>
 </head>
-<body>
-	<div id="container">
-		<div class="help-test-page">
-			<div>
-				<a class="common__logo" type="normal"></a>
-			</div>
-			<!-- <span class="title">Browser Extension Test</span> -->
-			<div class="tests">
-				<!-- <p>Type a senetence in the text box below.</p> -->
-				<div id="test-div-wrapper">
-					<div id="test-div" contenteditable="true">Test sentence with no words misspelled.</div>
-				</div>
-<!-- 				<p>Make sure there is a Grammarly icon in the bottom right corner and that misspelled words are underlined, as in the image below.</p>
-				<img src="test-result.png"/> -->
-			</div>
-		</div>
+<body>	
+	<div id="incopatible-message" style="display:none;">
+		<img src="browsers.png" style="width:124px"/><span>Your browser in not supported. Grammarly extension is only compatible with Chrome, Firefox and Safari browsers.</span>
 	</div>
-	<script type="text/javascript">
+	<div id="help-test-page">
+		<div>
+			<a class="common__logo" type="normal"></a>
+		</div>
+		<span class="title">Browser Extension Test</span>
 
-		window.onload = function() {
-		    document.getElementById("test-div").focus();
-		    setTimeout(function(){
-		    	var textDiv = document.getElementById("test-div");
-				var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
-				var htmlClass = document.getElementsByTagName("html")[0].className;
-				var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
+		
+		<div class="tests">
+			<div id="progressbar"></div>			
+			<div id="test-div-wrapper">
+				<div id="test-div" contenteditable="true">Test sentence with no words misspelled.</div>
+			</div>
 
-				if(htmlClass.indexOf(htmlClassToCompare) > -1
-					&& grammarlyBtns.length > 0
-					&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") == -1
-					&& textDiv.getAttribute("data-gramm") != "undefined"){
-
-					console.log("works okay");
-
-				}else if(htmlClass.indexOf(htmlClassToCompare) > -1
-					&& grammarlyBtns.length > 0
-					&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") > -1
-					&& textDiv.getAttribute("data-gramm") != "undefined"){
-
-					console.log("offline");
-
-				}else{
-					console.log("disabled or not installed");
-				}
-			}, 3000);
-		};
-
-	</script>
+		</div>
+	</div>	
 </body>
 </html>
