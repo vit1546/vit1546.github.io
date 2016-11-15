@@ -4,8 +4,7 @@ function fadeOutRedirect(type){
 			if(/chrome/i.test(navigator.userAgent)){
 				if(type == "ok"){
 					document.location.href = "";
-				}
-				else if(type == "offline"){
+				}else if(type == "offline"){
 					document.location.href = "";
 				}else{
 					document.location.href = "";
@@ -13,17 +12,15 @@ function fadeOutRedirect(type){
 			}else if(/firefox/i.test(navigator.userAgent)){
 				if(type == "ok"){
 					document.location.href = "";
-				}
-				else if(type == "offline"){
+				}else if(type == "offline"){
 					document.location.href = "";
 				}else{
-
+					document.location.href = "";
 				}
 			}else if(/safari/i.test(navigator.userAgent)){
 				if(type == "ok"){
 					document.location.href = "";
-				}
-				else if(type == "offline"){
+				}else if(type == "offline"){
 					document.location.href = "";
 				}else{
 					document.location.href = "";
