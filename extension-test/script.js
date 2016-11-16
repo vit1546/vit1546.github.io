@@ -3,27 +3,27 @@ function fadeOutRedirect(type){
 		$(this).html("Redirecting...").fadeIn(1500,function(){
 			if(/chrome/i.test(navigator.userAgent)){
 				if(type == "ok"){
-					document.location.href = "";
+					// document.location.href = "";
 				}else if(type == "offline"){
-					document.location.href = "";
+					// document.location.href = "";
 				}else{
-					document.location.href = "";
+					// document.location.href = "";
 				}
 			}else if(/firefox/i.test(navigator.userAgent)){
 				if(type == "ok"){
-					document.location.href = "";
+					// document.location.href = "";
 				}else if(type == "offline"){
-					document.location.href = "";
+					// document.location.href = "";
 				}else{
-					document.location.href = "";
+					// document.location.href = "";
 				}
 			}else if(/safari/i.test(navigator.userAgent)){
 				if(type == "ok"){
-					document.location.href = "";
+					// document.location.href = "";
 				}else if(type == "offline"){
-					document.location.href = "";
+					// document.location.href = "";
 				}else{
-					document.location.href = "";
+					// document.location.href = "";
 				}
 			}
 		});
