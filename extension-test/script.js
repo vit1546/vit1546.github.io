@@ -6,6 +6,8 @@ function fadeOutRedirect(type){
 					// document.location.href = "";
 				}else if(type == "offline"){
 					// document.location.href = "";
+				}else if(type == "spinning"){
+					// document.location.href = "";
 				}else{
 					// document.location.href = "";
 				}
@@ -14,6 +16,8 @@ function fadeOutRedirect(type){
 					// document.location.href = "";
 				}else if(type == "offline"){
 					// document.location.href = "";
+				}else if(type == "spinning"){
+					// document.location.href = "";
 				}else{
 					// document.location.href = "";
 				}
@@ -21,6 +25,8 @@ function fadeOutRedirect(type){
 				if(type == "ok"){
 					// document.location.href = "";
 				}else if(type == "offline"){
+					// document.location.href = "";
+				}else if(type == "spinning"){
 					// document.location.href = "";
 				}else{
 					// document.location.href = "";
@@ -37,30 +43,42 @@ window.onload = function() {
 		return;
 	}
     document.getElementById("test-div").focus();
+
+	var textDiv = document.getElementById("test-div");
+	var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
+	var htmlClass = document.getElementsByTagName("html")[0].className;
+	var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
+
     setTimeout(function(){
-    	var textDiv = document.getElementById("test-div");
-		var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
-		var htmlClass = document.getElementsByTagName("html")[0].className;
-		var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
 
 		if(htmlClass.indexOf(htmlClassToCompare) > -1
 			&& grammarlyBtns.length > 0
 			&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") == -1
+			&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") == -1
 			&& textDiv.getAttribute("data-gramm") != "undefined"){
-
+			console.log("ok");
 			fadeOutRedirect("ok");
 
 		}else if(htmlClass.indexOf(htmlClassToCompare) > -1
 			&& grammarlyBtns.length > 0
 			&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") > -1
+			&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") == -1
 			&& textDiv.getAttribute("data-gramm") != "undefined"){
-
+			console.log("offline");
 			fadeOutRedirect("offline");
 
+		}else if(htmlClass.indexOf(htmlClassToCompare) > -1
+			&& grammarlyBtns.length > 0
+			&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") == -1
+			&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") > -1
+			&& textDiv.getAttribute("data-gramm") != "undefined"){
+			console.log("spinning");
+			fadeOutRedirect("spinning");
 		}else{
 			fadeOutRedirect("");
+			console.log("not installed or disabled");
 		}
-	}, 3000);
+	}, 6000);
 
     var bar = new ProgressBar.Circle(progressbar, {
 
@@ -68,7 +86,7 @@ window.onload = function() {
 		strokeWidth: 4,
 		trailWidth: 1,
 		easing: 'easeInOut',
-		duration: 3000,
+		duration: 6000,
 		text: {
 			autoStyleContainer: false
 		},
