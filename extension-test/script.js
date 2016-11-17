@@ -50,6 +50,11 @@ window.onload = function() {
 	var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
 
     setTimeout(function(){
+    	console.log(grammarlyBtns.length);
+    	console.log(htmlClass);
+    	console.log(grammarlyBtns[0].childNodes[0].className.indexOf("-offline"));
+    	console.log(grammarlyBtns[0].childNodes[0].className.indexOf("-checking"));
+    	console.log(textDiv.getAttribute("data-gramm") );
 
 		if(htmlClass.indexOf(htmlClassToCompare) > -1
 			&& grammarlyBtns.length > 0
