@@ -44,12 +44,15 @@ window.onload = function() {
 	}
     document.getElementById("test-div").focus();
 
-	var textDiv = document.getElementById("test-div");
-	var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
-	var htmlClass = document.getElementsByTagName("html")[0].className;
-	var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
+	
 
     setTimeout(function(){
+
+    	var textDiv = document.getElementById("test-div");
+		var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
+		var htmlClass = document.getElementsByTagName("html")[0].className;
+		var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
+		
     	console.log(grammarlyBtns.length);
     	console.log(htmlClass);
     	console.log(grammarlyBtns[0].childNodes[0].className.indexOf("-offline"));
