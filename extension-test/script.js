@@ -42,9 +42,7 @@ window.onload = function() {
 		document.getElementById("incopatible-message").style.display = "block";
 		return;
 	}
-    document.getElementById("test-div").focus();
-
-	
+    document.getElementById("test-div").focus();	
 
     setTimeout(function(){
 
@@ -52,7 +50,7 @@ window.onload = function() {
 		var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
 		var htmlClass = document.getElementsByTagName("html")[0].className;
 		var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
-		
+
     	console.log(grammarlyBtns.length);
     	console.log(htmlClass);
     	console.log(grammarlyBtns[0].childNodes[0].className.indexOf("-offline"));
