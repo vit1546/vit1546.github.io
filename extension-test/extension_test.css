@@ -493,6 +493,9 @@ body {
     left: 50%;
     transform: translate(-60%, -50%);
 }
+p {
+    font-size: 25px;
+}
 #incopatible-message{
     font-size: 23px;
     text-align: center;
