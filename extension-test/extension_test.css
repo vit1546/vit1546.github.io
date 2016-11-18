@@ -480,8 +480,8 @@ body {
     line-height: 50px;
 }
 #test-div-wrapper{
-    position:relative;
-    top: -9999px;
+    /*position:relative;*/
+    /*top: -9999px;*/
 }
 #progressbar {
     font-size: 30px;
