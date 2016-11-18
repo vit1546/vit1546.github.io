@@ -42,20 +42,15 @@ window.onload = function() {
 		document.getElementById("incopatible-message").style.display = "block";
 		return;
 	}
-    document.getElementById("test-div").focus();	
+    	
 
     setTimeout(function(){
-
+    	document.getElementById("test-div").focus();
+    	
     	var textDiv = document.getElementById("test-div");
 		var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
 		var htmlClass = document.getElementsByTagName("html")[0].className;
 		var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
-
-    	console.log(grammarlyBtns.length);
-    	console.log(htmlClass);
-    	console.log(grammarlyBtns[0].childNodes[0].className.indexOf("-offline"));
-    	console.log(grammarlyBtns[0].childNodes[0].className.indexOf("-checking"));
-    	console.log(textDiv.getAttribute("data-gramm") );
 
 		if(htmlClass.indexOf(htmlClassToCompare) > -1
 			&& grammarlyBtns.length > 0
@@ -98,7 +93,7 @@ window.onload = function() {
 		},
 		from: { color: 'rgba(43, 182, 115, .6)', width: 1 },
 		to: { color: 'rgba(43, 182, 115, .6)', width: 4 },
-		// Set default step function for all animate calls
+
 		step: function(state, circle) {
 			circle.path.setAttribute('stroke', state.color);
 			circle.path.setAttribute('stroke-width', state.width);
