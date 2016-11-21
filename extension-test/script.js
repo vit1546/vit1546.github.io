@@ -37,16 +37,16 @@ function fadeOutRedirect(type){
 }
 
 window.onload = function() {
-	if(!/safari/i.test(navigator.userAgent) && !/firefox/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent)){
+	if(!/safari/i.test(navigator.userAgent) 
+		&& !/firefox/i.test(navigator.userAgent) 
+		&& !/chrome/i.test(navigator.userAgent)){
 		document.getElementById("help-test-page").style.display = "none";
 		document.getElementById("incopatible-message").style.display = "block";
 		return;
-	}
-    	
-
+	}    	
+	document.getElementById("test-div").focus();
+	
     setTimeout(function(){
-    	document.getElementById("test-div").focus();
-    	
     	var textDiv = document.getElementById("test-div");
 		var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
 		var htmlClass = document.getElementsByTagName("html")[0].className;
