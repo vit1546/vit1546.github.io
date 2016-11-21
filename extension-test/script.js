@@ -79,7 +79,7 @@ window.onload = function() {
 			fadeOutRedirect("");
 			console.log("not installed or disabled");
 		}
-	}, 6000);
+	}, 20*1000);
 
     var bar = new ProgressBar.Circle(progressbar, {
 
