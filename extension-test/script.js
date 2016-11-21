@@ -37,6 +37,9 @@ function fadeOutRedirect(type){
 }
 
 window.onload = function() {
+
+	var TEST_DURATION = 20*1000;
+
 	if(!/safari/i.test(navigator.userAgent) 
 		&& !/firefox/i.test(navigator.userAgent) 
 		&& !/chrome/i.test(navigator.userAgent)){
@@ -79,7 +82,7 @@ window.onload = function() {
 			fadeOutRedirect("");
 			console.log("not installed or disabled");
 		}
-	}, 20*1000);
+	}, TEST_DURATION);
 
     var bar = new ProgressBar.Circle(progressbar, {
 
@@ -87,7 +90,7 @@ window.onload = function() {
 		strokeWidth: 4,
 		trailWidth: 1,
 		easing: 'easeInOut',
-		duration: 6000,
+		duration: TEST_DURATION,
 		text: {
 			autoStyleContainer: false
 		},
