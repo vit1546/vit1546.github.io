@@ -59,7 +59,7 @@ window.onload = function() {
 			&& grammarlyBtns.length > 0
 			&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") == -1
 			&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") == -1
-			&& textDiv.getAttribute("data-gramm") != "undefined"){
+			&& textDiv.getAttribute("data-gramm") != null){
 			console.log("ok");
 			fadeOutRedirect("ok");
 
