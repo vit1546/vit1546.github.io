@@ -54,12 +54,13 @@ window.onload = function() {
 		var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
 		var htmlClass = document.getElementsByTagName("html")[0].className;
 		var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
-
+		
 		if(htmlClass.indexOf(htmlClassToCompare) > -1
 			&& grammarlyBtns.length > 0
 			&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") == -1
 			&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") == -1
 			&& textDiv.getAttribute("data-gramm") != null){
+
 			console.log("ok");
 			fadeOutRedirect("ok");
 
@@ -67,7 +68,7 @@ window.onload = function() {
 			&& grammarlyBtns.length > 0
 			&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") > -1
 			&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") == -1
-			&& textDiv.getAttribute("data-gramm") != "undefined"){
+			&& textDiv.getAttribute("data-gramm") != null){
 			console.log("offline");
 			fadeOutRedirect("offline");
 
@@ -75,7 +76,7 @@ window.onload = function() {
 			&& grammarlyBtns.length > 0
 			&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") == -1
 			&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") > -1
-			&& textDiv.getAttribute("data-gramm") != "undefined"){
+			&& textDiv.getAttribute("data-gramm") != null){
 			console.log("spinning");
 			fadeOutRedirect("spinning");
 		}else{
