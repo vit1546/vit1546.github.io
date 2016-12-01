@@ -10,26 +10,25 @@
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="progressbar.min.js"></script>
 <script type="text/javascript"src="jquery.min.js"></script>
-<script type="text/javascript"src="script.js"></script>
 </head>
 <body>	
 	<div id="incopatible-message" style="display:none;">
-		<img src="browsers.png" style="width:124px"/><span>Your browser in not supported. Grammarly extension is only compatible with Chrome, Firefox and Safari browsers.</span>
+		<img src="browsers.png" style="width:124px"/><span class="title">Your browser is not supported.</span><p>The Grammarly extension is compatible<br/> with Chrome, Firefox, and Safari browsers only.</p>
+	</div>
+	<div>
+		<a class="common__logo" type="normal"></a>
 	</div>
 	<div id="help-test-page">
-		<div>
-			<a class="common__logo" type="normal"></a>
-		</div>
-		<span class="title">Browser Extension Test</span>
-		<p>You will be automatically redirected to a help page when the test finishes.</p>
-		
-		<div class="tests">
-			<div id="progressbar"></div>			
-			<div id="test-div-wrapper">
-				<div id="test-div" contenteditable="true">Test sentence with a word misspeled.</div>
+			<span class="title">Browser Extension Test</span>
+			<p>You will be automatically redirected to a help page when the test finishes.</p>
+			
+			<div class="tests">
+				<div id="progressbar"></div>			
+				<div id="test-div-wrapper">
+					<div id="test-div" contenteditable="true">Test sentence with a word misspeled.</div>
+				</div>
 			</div>
-
-		</div>
 	</div>	
+	<script type="text/javascript"src="script.js"></script>
 </body>
 </html>

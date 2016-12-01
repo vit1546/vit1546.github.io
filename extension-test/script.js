@@ -36,83 +36,83 @@ function fadeOutRedirect(type){
 	});	
 }
 
-window.onload = function() {
+if(!/safari/i.test(navigator.userAgent) 
+	&& !/firefox/i.test(navigator.userAgent) 
+	&& !/chrome/i.test(navigator.userAgent)){
+	document.getElementById("help-test-page").style.display = "none";
+	document.getElementById("incopatible-message").style.display = "block";
+}else{
+	window.onload = function() {
 
-	var TEST_DURATION = 20*1000;
+		var TEST_DURATION = 20*1000;
 
-	if(!/safari/i.test(navigator.userAgent) 
-		&& !/firefox/i.test(navigator.userAgent) 
-		&& !/chrome/i.test(navigator.userAgent)){
-		document.getElementById("help-test-page").style.display = "none";
-		document.getElementById("incopatible-message").style.display = "block";
-		return;
-	}    	
-	document.getElementById("test-div").focus();
-	
-    setTimeout(function(){
-    	var textDiv = document.getElementById("test-div");
-		var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
-		var htmlClass = document.getElementsByTagName("html")[0].className;
-		var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
+		document.getElementById("test-div").focus();
 		
-		if(htmlClass.indexOf(htmlClassToCompare) > -1
-			&& grammarlyBtns.length > 0
-			&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") == -1
-			&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") == -1
-			&& textDiv.getAttribute("data-gramm") != null){
+	    setTimeout(function(){
+	    	var textDiv = document.getElementById("test-div");
+			var grammarlyBtns = document.getElementsByTagName("grammarly-btn");
+			var htmlClass = document.getElementsByTagName("html")[0].className;
+			var htmlClassToCompare = "gr__" + window.location.hostname.replace(/\./g,"_");
+			
+			if(htmlClass.indexOf(htmlClassToCompare) > -1
+				&& grammarlyBtns.length > 0
+				&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") == -1
+				&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") == -1
+				&& textDiv.getAttribute("data-gramm") != null){
 
-			console.log("ok");
-			fadeOutRedirect("ok");
+				console.log("ok");
+				fadeOutRedirect("ok");
 
-		}else if(htmlClass.indexOf(htmlClassToCompare) > -1
-			&& grammarlyBtns.length > 0
-			&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") > -1
-			&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") == -1
-			&& textDiv.getAttribute("data-gramm") != null){
-			console.log("offline");
-			fadeOutRedirect("offline");
+			}else if(htmlClass.indexOf(htmlClassToCompare) > -1
+				&& grammarlyBtns.length > 0
+				&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") > -1
+				&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") == -1
+				&& textDiv.getAttribute("data-gramm") != null){
+				console.log("offline");
+				fadeOutRedirect("offline");
 
-		}else if(htmlClass.indexOf(htmlClassToCompare) > -1
-			&& grammarlyBtns.length > 0
-			&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") == -1
-			&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") > -1
-			&& textDiv.getAttribute("data-gramm") != null){
-			console.log("spinning");
-			fadeOutRedirect("spinning");
-		}else{
-			fadeOutRedirect("");
-			console.log("not installed or disabled");
-		}
-	}, TEST_DURATION);
-
-    var bar = new ProgressBar.Circle(progressbar, {
-
-		color: 'rgba(43, 182, 115, .6)',
-		strokeWidth: 4,
-		trailWidth: 1,
-		easing: 'easeInOut',
-		duration: TEST_DURATION,
-		text: {
-			autoStyleContainer: false
-		},
-		from: { color: 'rgba(43, 182, 115, .6)', width: 1 },
-		to: { color: 'rgba(43, 182, 115, .6)', width: 4 },
-
-		step: function(state, circle) {
-			circle.path.setAttribute('stroke', state.color);
-			circle.path.setAttribute('stroke-width', state.width);
-
-			var value = Math.round(circle.value() * 100);
-			if (value === 0) {
-				circle.setText('');
-			} else {
-				circle.setText(value);
+			}else if(htmlClass.indexOf(htmlClassToCompare) > -1
+				&& grammarlyBtns.length > 0
+				&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") == -1
+				&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") > -1
+				&& textDiv.getAttribute("data-gramm") != null){
+				console.log("spinning");
+				fadeOutRedirect("spinning");
+			}else{
+				fadeOutRedirect("");
+				console.log("not installed or disabled");
 			}
-		}
-	});
-	bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
-	bar.text.style.fontSize = '2rem';
+		}, TEST_DURATION);
 
-	bar.animate(1.0);
+	    var bar = new ProgressBar.Circle(progressbar, {
 
+			color: 'rgba(43, 182, 115, .6)',
+			strokeWidth: 4,
+			trailWidth: 1,
+			easing: 'easeInOut',
+			duration: TEST_DURATION,
+			text: {
+				autoStyleContainer: false
+			},
+			from: { color: 'rgba(43, 182, 115, .6)', width: 1 },
+			to: { color: 'rgba(43, 182, 115, .6)', width: 4 },
+
+			step: function(state, circle) {
+				circle.path.setAttribute('stroke', state.color);
+				circle.path.setAttribute('stroke-width', state.width);
+
+				var value = Math.round(circle.value() * 100);
+				if (value === 0) {
+					circle.setText('');
+				} else {
+					circle.setText(value);
+				}
+			}
+		});
+		bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+		bar.text.style.fontSize = '2rem';
+
+		bar.animate(1.0);
+
+	}
 };
