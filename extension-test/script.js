@@ -3,33 +3,33 @@ function fadeOutRedirect(type){
 		$(this).html("<p>Redirecting...</p>").fadeIn(1500,function(){
 			if(/chrome/i.test(navigator.userAgent)){
 				if(type == "ok"){
-					// document.location.href = "";
+					document.location.href = "https://support.grammarly.com/hc/en-us/articles/114094215252";
 				}else if(type == "offline"){
-					// document.location.href = "";
+					document.location.href = "https://support.grammarly.com/hc/en-us/articles/114094207192";
 				}else if(type == "spinning"){
-					// document.location.href = "";
+					document.location.href = "https://support.grammarly.com/hc/en-us/articles/114094215912";
 				}else{
-					// document.location.href = "";
+					document.location.href = "https://support.grammarly.com/hc/en-us/articles/114094215872";
 				}
 			}else if(/firefox/i.test(navigator.userAgent)){
 				if(type == "ok"){
-					// document.location.href = "";
+					document.location.href = "https://support.grammarly.com/hc/en-us/articles/114094215272";
 				}else if(type == "offline"){
-					// document.location.href = "";
+					document.location.href = "https://support.grammarly.com/hc/en-us/articles/114094826811";
 				}else if(type == "spinning"){
-					// document.location.href = "";
+					document.location.href = "https://support.grammarly.com/hc/en-us/articles/114094836891";
 				}else{
-					// document.location.href = "";
+					document.location.href = "https://support.grammarly.com/hc/en-us/articles/114094215892";
 				}
 			}else if(/safari/i.test(navigator.userAgent)){
 				if(type == "ok"){
-					// document.location.href = "";
+					document.location.href = "https://support.grammarly.com/hc/en-us/articles/114094215292";
 				}else if(type == "offline"){
-					// document.location.href = "";
+					document.location.href = "https://support.grammarly.com/hc/en-us/articles/114094826831";
 				}else if(type == "spinning"){
-					// document.location.href = "";
+					document.location.href = "https://support.grammarly.com/hc/en-us/articles/114094836911";
 				}else{
-					// document.location.href = "";
+					document.location.href = "https://support.grammarly.com/hc/en-us/articles/114094836871";
 				}
 			}
 		});
@@ -60,7 +60,6 @@ if(!/safari/i.test(navigator.userAgent)
 				&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") == -1
 				&& textDiv.getAttribute("data-gramm") != null){
 
-				console.log("ok");
 				fadeOutRedirect("ok");
 
 			}else if(htmlClass.indexOf(htmlClassToCompare) > -1
@@ -68,7 +67,7 @@ if(!/safari/i.test(navigator.userAgent)
 				&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") > -1
 				&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") == -1
 				&& textDiv.getAttribute("data-gramm") != null){
-				console.log("offline");
+
 				fadeOutRedirect("offline");
 
 			}else if(htmlClass.indexOf(htmlClassToCompare) > -1
@@ -76,11 +75,10 @@ if(!/safari/i.test(navigator.userAgent)
 				&& grammarlyBtns[0].childNodes[0].className.indexOf("-offline") == -1
 				&& grammarlyBtns[0].childNodes[0].className.indexOf("-checking") > -1
 				&& textDiv.getAttribute("data-gramm") != null){
-				console.log("spinning");
+
 				fadeOutRedirect("spinning");
 			}else{
 				fadeOutRedirect("");
-				console.log("not installed or disabled");
 			}
 		}, TEST_DURATION);
 
