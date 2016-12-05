@@ -1,6 +1,6 @@
 function fadeOutRedirect(type){
 	$('#progressbar').fadeOut(500, function() {
-		$(this).html("Redirecting...").fadeIn(1500,function(){
+		$(this).html("<p>Redirecting...</p>").fadeIn(1500,function(){
 			if(/chrome/i.test(navigator.userAgent)){
 				if(type == "ok"){
 					// document.location.href = "";
@@ -85,32 +85,14 @@ if(!/safari/i.test(navigator.userAgent)
 		}, TEST_DURATION);
 
 	    var bar = new ProgressBar.Circle(progressbar, {
-
-			color: 'rgba(43, 182, 115, .6)',
-			strokeWidth: 4,
-			trailWidth: 1,
+			strokeWidth: 6,
 			easing: 'easeInOut',
 			duration: TEST_DURATION,
-			text: {
-				autoStyleContainer: false
-			},
-			from: { color: 'rgba(43, 182, 115, .6)', width: 1 },
-			to: { color: 'rgba(43, 182, 115, .6)', width: 4 },
-
-			step: function(state, circle) {
-				circle.path.setAttribute('stroke', state.color);
-				circle.path.setAttribute('stroke-width', state.width);
-
-				var value = Math.round(circle.value() * 100);
-				if (value === 0) {
-					circle.setText('');
-				} else {
-					circle.setText(value);
-				}
-			}
+			color: '#2BB673',
+			trailColor: '#eee',
+			trailWidth: 1,
+			svgStyle: null
 		});
-		bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
-		bar.text.style.fontSize = '2rem';
 
 		bar.animate(1.0);
 

@@ -486,13 +486,13 @@ body {
 }
 #progressbar {
     font-size: 30px;
-    margin: 20px;
     width: 200px;
     height: 200px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-60%, -10%);
+    margin: 20px auto;
+}
+#progressbar>p{
+    font-size: 30px;
+    margin-top: 82px;
 }
 p {
     font-size: 25px;
