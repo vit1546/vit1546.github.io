@@ -109,6 +109,10 @@
     console.log(bootstrapperLogs);
     console.log(installerLogs);
 
+    if(bootstrapperLogs.length == 0){
+      alert("Please upload all files");
+    }
+
     document.getElementById("link").innerHTML = "";
     
     var resultsDiv = document.getElementById('link');
