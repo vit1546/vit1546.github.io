@@ -1,0 +1,314 @@
+<style type="text/css">
+    select{
+        display:block;
+        width: 200px;
+        margin: 20px 0;
+    }
+
+    #custom-date-wrap{
+        margin: 20px 0;
+    }
+</style>
+<div id="app">
+    <div id="selectors">
+        <p>Agent:</p>
+        <select id="assignee-selector">
+            <option value="">Select an agent..</option>
+            <option v-for="assignee in assignees" v-bind:value="assignee">{{assignee}}</option>
+        </select>
+        <p>Reviewer:</p>
+        <select id="reviewer-selector">
+            <option value="">Select a reviewer..</option>
+            <option v-for="reviewer in reviewers" v-bind:value="reviewer">{{reviewer}}</option>
+        </select>
+        <p>Select date range:</p>
+        <select id="date-selector" onChange="handleDateSelection()">
+            <option value="7">Last 7 days</option>
+            <option value="30">Last 30 days</option>
+            <option value="custom">Custom range</option>
+        </select>
+    </div>
+    <button type="button" onClick="buildReport()">Get report!</button>
+    <h2>Agent's report</h2>
+    <p>Bad tickets -> Product: {{agentReport.badTickets.product}}</p>
+    <p>Bad tickets -> Agent's Service: {{agentReport.badTickets.agentService}}</p>
+    <p>Bad tickets -> User Error: {{agentReport.badTickets.userError}}</p>
+    <p>Bad tickets -> Total: {{agentReport.badTickets.total}}</p>
+    <p>Well Done: {{agentReport.wellDoneCount}}</p>
+    <h3>Common mistakes</h3>
+    <table>
+        <tr v-for="item in agentReport.commonMistakes">
+            <td>{{ item.mistake }}:</td><td>{{ item.count }}</td>
+        </tr>
+    </table>
+    <h2>Reviewer's report</h2>
+    <p>Reviewed tickets count: {{reviewerReport.reviewedTicketsCount}}<p>
+    <p>Avergae review time: {{reviewerReport.avgReviewTime}}<p>
+</div>
+
+<script type="text/javascript" src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+    
+    // Declaring Vue.js app
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        fullData:"",
+        dataInDateRange:"",
+        assignees:"",
+        reviewers:"",
+        agentReport:{
+            badTickets:{
+                product:0,
+                agentService:0,
+                userError:0,
+                total:0
+            },
+            commonMistakes:[],
+            wellDoneCount:0
+        },
+        reviewerReport:{
+            reviewedTicketsCount:0,
+            avgReviewTime:0
+        }
+      }
+    });
+
+    // Getting data from the spreadsheet
+
+	var CLIENT_ID = '139358903198-fhc7jjp1l01i6serlqpjql6in0psmnc7.apps.googleusercontent.com';
+	var SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
+
+	function checkAuth() {
+        gapi.auth.authorize({
+            'client_id': CLIENT_ID,
+            'scope': SCOPES.join(' '),
+            'immediate': true
+        }, handleAuthResult);
+    }
+
+    function handleAuthResult(authResult) {
+        if (authResult && !authResult.error) {
+            loadSheetsApi();
+        } else {
+
+        }
+    }
+
+    function handleAuthClick(event) {
+        gapi.auth.authorize(
+                {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
+                handleAuthResult);
+        return false;
+    }
+
+    function loadSheetsApi() {
+        var discoveryUrl =
+                'https://sheets.googleapis.com/$discovery/rest?version=v4';
+        gapi.client.load(discoveryUrl).then(getData);
+    }
+
+    function getData(){
+    	gapi.client.sheets.spreadsheets.values.get({
+			spreadsheetId: '1WkUBrxMlHHwdQhVR53G7A2v3CsMUG4xMJ7KxM8tCYZU',
+			range: 'email!A2:I',
+  		}).then(function(response){
+            initializeApp(response.result.values);
+        });
+    }
+
+    // Other methods
+
+    function initializeApp(data){
+        app.fullData = data;
+        app.assignees = getUsers(data,1);
+        app.reviewers = getUsers(data,2);
+    }
+
+    function getUsers(arr,index){
+
+        var users = [];
+
+        for(var i = 0; i < arr.length; i++){
+            if(users.indexOf(arr[i][index]) == -1){
+                users.push(arr[i][index]);
+            }
+        }
+
+        return users.sort();
+    }
+
+    function handleDateSelection(){
+        var rangePicker = document.getElementById("date-selector");
+        if(rangePicker.value == "custom"){
+            var el = document.createElement("div");
+            el.setAttribute("id","custom-date-wrap");
+            el.innerHTML = "Date from: <input id='custom-date-from' type='date'> Date to: <input id='custom-date-to' type='date'>";
+            document.getElementById("selectors").appendChild(el);
+        }else{
+            if(document.getElementById("custom-date-wrap")){
+                var e = document.getElementById("custom-date-wrap");
+                e.parentNode.removeChild(e);
+            }
+        }
+    }
+
+    function buildReport(){
+
+        var dateFrom, dateTo;
+
+        var rangeType = document.getElementById("date-selector").value;
+
+        if(rangeType == "7"){
+            dateFrom = Math.round(new Date(new Date().getTime() - 7 * 24 * 3600 * 1000).getTime() / 1000);
+            dateTo = Math.round(new Date().getTime() / 1000);
+        }else if(rangeType == "30"){
+            dateFrom = Math.round(new Date(new Date().getTime() - 30 * 24 * 3600 * 1000).getTime() / 1000);
+            dateTo = Math.round(new Date().getTime() / 1000);
+        }else{            
+            dateFrom = Math.round(new Date(document.getElementById("custom-date-from").value).getTime() / 1000);
+            dateFrom = Math.round(new Date(document.getElementById("custom-date-to").value).getTime() / 1000);
+        }
+
+        var agent = document.getElementById("assignee-selector").value;
+        var reviewer = document.getElementById("reviewer-selector").value;
+
+        app.dataInDateRange = getRangedData(app.fullData, dateFrom, dateTo);
+
+        var agentsTickets = filterByProperty(app.dataInDateRange, 1, agent);
+        var reviewersTickets = filterByProperty(app.dataInDateRange, 2, reviewer);
+        
+        var agentsBadTicketsProduct = 0;
+        var agentsBadTicketsAgent = 0;
+        var agentsBadTicketsUser = 0;
+        var wellDoneCount = 0;
+        var commonMistakes = [];
+
+        for(var i = 0; i < agentsTickets.length; i++){
+            if(agentsTickets[i][5] == "Bad"){
+                if(agentsTickets[i][6] == "Product"){
+                    agentsBadTicketsProduct++;
+                }else if(agentsTickets[i][6] == "User error"){
+                    agentsBadTicketsUser++;
+                }else if(agentsTickets[i][6] == "User error"){
+                    agentsBadTicketsUser++;
+                }
+            }else if(agentsTickets[i][5] == "None"){
+                if(agentsTickets[i][8] == "Well Done"){
+                    wellDoneCount++;
+                }
+            }
+        }
+
+        app.agentReport.badTickets.product = agentsBadTicketsProduct;
+        app.agentReport.badTickets.agentService = agentsBadTicketsAgent;
+        app.agentReport.badTickets.userError = agentsBadTicketsUser;
+        app.agentReport.badTickets.total = agentsBadTicketsProduct + agentsBadTicketsUser + agentsBadTicketsAgent;
+
+        app.agentReport.wellDoneCount = wellDoneCount;
+
+        app.reviewerReport.reviewedTicketsCount = reviewersTickets.length;
+        app.reviewerReport.avgReviewTime = getAverageTime(reviewersTickets);
+
+        app.agentReport.commonMistakes = getCommonMistakes(
+            filterByProperty(
+                filterByProperty(agentsTickets,5,"Bad"),
+                6,"Agent's Service").concat(filterByProperty(agentsTickets,5,"None")));
+
+    }
+
+    function filterByProperty(arr, index, property){
+        var result = [];
+
+        for(var i = 0; i < arr.length; i++){
+            if(arr[i][index] == property){
+                result.push(arr[i]);
+            }
+        }
+
+        return result;
+    }
+
+    function getRangedData(arr, startDate, endDate){
+        var result = [];
+
+        for(var i = 0; i < arr.length; i++){
+            if(arr[i][3] >= startDate && arr[i][3] <= endDate){
+                result.push(arr[i]);
+            }
+        }
+
+        return result;
+    }
+
+    function getAverageTime(tickets){
+        var total = 0;
+
+        for(var i = 0; i < tickets.length; i++){
+            total += +tickets[i][4];
+        }
+
+        return formatSeconds(Math.round(total/tickets.length));
+    }
+
+    function formatSeconds(seconds){
+        
+        var mins = Math.floor(seconds / 60);
+        var remainingSecs = seconds - mins * 60;
+
+        return "%m:%s"
+            .replace("%m",("0" + mins).slice(-2))
+            .replace("%s",("0" + remainingSecs).slice(-2));
+    }
+
+    function getCommonMistakes(reviews){
+
+        var commonMistakes = [];
+
+        var allMistakes = "";
+
+        for(var i = 0; i < reviews.length; i++){
+            if(reviews[i][7]){
+                allMistakes += reviews[i][7] + ",";
+            }
+            if(reviews[i][8]){
+                allMistakes += reviews[i][8]  + ",";
+            }
+        }
+        allMistakes = allMistakes.split(",");
+        allMistakes.splice(allMistakes.length - 1);
+
+        while(allMistakes.length != 0){
+            if(allMistakes[0].toLowerCase() == "well done"){
+                allMistakes.splice(0,1);
+                continue;
+            }
+            var value = allMistakes[0];            
+            var count = 0;
+            for(var i = 0; i < allMistakes.length; i++){
+                if(allMistakes[i] == value){
+                    count++;
+                    allMistakes.splice(i,1);
+                    i--;
+                }
+            }
+            commonMistakes.push({
+                mistake:value,
+                count:count
+            });
+        }
+
+        return commonMistakes.sort(function(a,b){
+            if(a.count > b.count){
+                return -1;
+            }else if(a.count < b.count){
+                return 1;
+            }else{
+                return 0;
+            }
+        });
+    }
+
+</script>
+<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
