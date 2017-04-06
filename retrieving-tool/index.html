@@ -35,6 +35,7 @@
     <p>Bad tickets -> User Error: {{agentReport.badTickets.userError}}</p>
     <p>Bad tickets -> Total: {{agentReport.badTickets.total}}</p>
     <p>Well Done: {{agentReport.wellDoneCount}}</p>
+    <p>Total: {{agentReport.total}}</p>
     <h3>Common mistakes</h3>
     <table>
         <tr v-for="item in agentReport.commonMistakes">
@@ -66,7 +67,8 @@
                 total:0
             },
             commonMistakes:[],
-            wellDoneCount:0
+            wellDoneCount:0,
+            total:0
         },
         reviewerReport:{
             reviewedTicketsCount:0,
@@ -207,6 +209,8 @@
         app.agentReport.badTickets.total = agentsBadTicketsProduct + agentsBadTicketsUser + agentsBadTicketsAgent;
 
         app.agentReport.wellDoneCount = wellDoneCount;
+
+        app.agentReport.total = agentsTickets.length;
 
         app.reviewerReport.reviewedTicketsCount = reviewersTickets.length;
         app.reviewerReport.avgReviewTime = getAverageTime(reviewersTickets);
