@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style type="text/css">
-      #holder{
-        width:500px;
-        height:100px; 
-        border: 10px dashed #ccc;
-        text-align: center;
-        line-height: 100px;
-        color: #ccc;
-      }
-      #holder.hover { 
-        border: 10px dashed #0c0 !important;
-        color: #0c0;
-      }
-      #link{        
-        line-height: 100px;
-        padding-left: 30px;
-      }
-    </style>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div id="holder" id="holder">Drop your log files here</div>
-<div id="link"></div>
+<div class="main-wrap">
+	<h1>Add-in Installation Log Parser</h1>
+	<div class="dropzone" id="dropzone">
+		<div class="dz-message">Click or drag your files here to upload.</div>
+		<input class="dropzone-input" type="file">
+	</div>
+	<div id="link"></div>
+</div>
 <script type="text/javascript">
 
   var codeToUrlMap = {
@@ -38,7 +27,7 @@
     "0x6b2, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=77561862",
     "0x89b, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=83820629",
     "0x9c6, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=79167549",
-    "0x51e, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=161225962"
+    "0x51e, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=161225962",
     "N/A, N/A, N/A, 0x80070002":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=75497553",
     "N/A, N/A, N/A, 0x80070003":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=79167738",
     "N/A, N/A, N/A, 0x80070005":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=75497522",
@@ -89,6 +78,7 @@
   }
 
   function loadFileAsText(files){
+  	console.log("qweasd");
     var i = 0;
     var fileReader = new FileReader();
     fileReader.onload = function(fileLoadedEvent){
@@ -107,9 +97,6 @@
 
   function showResults(){
 
-    console.log(bootstrapperLogs);
-    console.log(installerLogs);
-
     if(bootstrapperLogs.length == 0){
       alert("Please upload all files");
     }
@@ -126,15 +113,14 @@
     var installerLog = findMatchingLog(bootstrapperLog);
 
     if(installerLog == null){
-      console.log("no Installer Logs Found");
       if(installerLogs.length != 0){
         installerLog = installerLogs[0];      
       }
     }
-
+    console.log(installerLogs);
     if(bootstrapperLog.errorCode == "0x6b2, N/A, N/A, 0x80070643"){
       if(installerLog == null){
-        alert("Please provide isntaller log");
+        alert("Please provide installer log");
         return;
       }
       var oldVersionPattern = /SOURCEMGMT: Trying source [^}]+}([^\\]+)/i
@@ -143,7 +129,7 @@
     }
 
 
-    for(let l in codeToUrlMap){
+    for(var l in codeToUrlMap){
       if(l == bootstrapperLog.errorCode){
         linkTag.setAttribute("href",codeToUrlMap[l]);
         linkTag.innerHTML = l;
@@ -168,11 +154,10 @@
       }
       installerLogs.push(
         new InstallerLog(productCodeInstaller,log));
-
     }else{
       //bootstrapper log
       if(exitCodePattern.test(log)){
-        var exitCode = exitCodePattern.exec(log)[1];
+      	  var exitCode = exitCodePattern.exec(log)[1];
       }else{
         console.log("No exit code found");
         return;
@@ -207,16 +192,22 @@
     }
   }
 
-  var holder = document.getElementById('holder');
-  holder.ondragover = function() { this.className = 'hover'; return false; };
-  holder.ondragleave = function() { this.className = ''; return false; };
-  holder.ondrop = function(e) {
-    bootstrapperLogs = [];
-    installerLogs = [];    
-    this.className = '';
-    e.preventDefault();    
-    loadFileAsText(e.dataTransfer.files);
-  }
+	var holder = document.getElementById('dropzone');
+	holder.ondragover = function() { 
+		this.classList.add('dz-drag-hover'); 
+		return false; 
+	};
+	holder.ondragleave = function() {
+		this.classList.remove('dz-drag-hover');
+		return false; 
+	};
+	holder.ondrop = function(e) {
+		bootstrapperLogs = [];
+		installerLogs = [];    
+		this.classList.remove('dz-drag-hover');
+		e.preventDefault();    
+		loadFileAsText(e.dataTransfer.files);
+	}
 </script>
 </body>
 </html>
