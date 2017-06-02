@@ -99,3 +99,7 @@ html {
     text-align: right;
     padding-right: 50px;
 }
+
+.custom-range-select{
+    margin: 20px 0;
+}

@@ -26,7 +26,7 @@
                         <option value="custom">Custom range</option>
                     </select>
                     <div v-if="reportRange.type == 'custom'">
-                        <div>Date from
+                        <div class="custom-range-select">Date from
                             <input v-model="reportRange.from" type="date"> To
                             <input v-model="reportRange.to" type="date"></div>
                     </div>
@@ -76,7 +76,7 @@
                         <option value="custom">Custom range</option>
                     </select>
                     <div v-if="reportRange.type == 'custom'">
-                        <div>Date from
+                        <div class="custom-range-select">Date from
                             <input v-model="reportRange.from" type="date"> To
                             <input v-model="reportRange.to" type="date"></div>
                     </div>
