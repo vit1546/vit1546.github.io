@@ -1,216 +1,72 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+<title>Installation logs parser</title>
+
 <body>
-<div class="main-wrap">
-	<h1>Add-in Installation Log Parser</h1>
-	<div class="dropzone" id="dropzone">
-		<div class="dz-message">Click or drag your files here to upload.</div>
-		<input class="dropzone-input" type="file">
-	</div>
-	<div id="link"></div>
-</div>
-<script type="text/javascript">
+    <div class="main-wrap">
+        <h1>Add-in Installation Log Parser</h1>
+        <div class="dropzone" id="dropzone">
+            <div class="dz-message">Click or drag your files here to upload.</div>
+            <input class="dropzone-input" type="file">
+        </div>
+        <div id="result"></div>
+    </div>
+    <script type="text/javascript">
 
-  var codeToUrlMap = {
-  	"0x78e, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=161453258",
-  	"0xb74, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=163223295",
-  	"0x525, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=163222951",
-    "0x6b7, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=161049827",
-    "0x517, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=94568522",
-    "0x518, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=75497489",
-    "0x51f, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=80019458",
-    "0x528, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=121045478",
-    "0x52d, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=105578528",
-    "0x532, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=90636318",
-    "0x57a, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=75497532",
-    "0x57e, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=76513396",
-    "0x6b2, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=77561862",
-    "0x89b, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=83820629",
-    "0x9c6, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=79167549",
-    "0x51e, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=161225962",
-    "N/A, N/A, N/A, 0x80070002":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=75497553",
-    "N/A, N/A, N/A, 0x80070003":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=79167738",
-    "N/A, N/A, N/A, 0x80070005":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=75497522",
-    "N/A, N/A, N/A, 0x80070641":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=75890774",
-    "N/A, N/A, N/A, 0x80070642":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=79167504",
-    "N/A, N/A, N/A, 0x80070643":"https://grammarly.atlassian.net/wiki/spaces/SQA/pages/163582068",
-    "N/A, N/A, N/A, 0x8007064c":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=80019488",
-    "N/A, N/A, N/A, 0x80070652":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=77103198",
-    "N/A, N/A, N/A, 0x80070656":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=90636294",
-    "N/A, N/A, N/A, 0x80070659":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=77561989",
-    "N/A, N/A, N/A, 0x80070660":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=91422803",
-    "N/A, N/A, N/A, 0x80072ee2":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=77561950",
-    "N/A, N/A, N/A, 0x800b010b":"https://grammarly.atlassian.net/wiki/pages/viewpage.action?pageId=78118965"    
-  };
+    	var oldVersion = "";
+    	document.getElementById("result").innerText = "";
+    	var oldVersionPattern = /SOURCEMGMT: Trying source [^}]+}([^\\]+)/i;
 
-  var bootstrapperLogs = [];
-  var installerLogs = [];
+        function loadFileAsText(files) {
+            oldVersion = "";
+            var i = 0;
+            var fileReader = new FileReader();
+            fileReader.onload = function(fileLoadedEvent) {
+                var textFromFileLoaded = fileLoadedEvent.target.result;
+                parseLog(textFromFileLoaded);
+                i++;
+                if (i < files.length) {
+                    this.readAsText(files[i], "UTF-8");
+                } else {
+                    showResults();
+                }
+            };
 
-  function InstallerLog(productCode,logText){
-    this.productCode = productCode;
-    this.logText = logText;
-  }
-
-  function BootstrapperLog(productCode,logDate,errorCode){
-    this.productCode = productCode;
-    this.logDate = logDate;
-    this.errorCode = errorCode;
-  }
-
-  function getLatestLog(){
-    var latestLog = bootstrapperLogs[0];
-    for(var i = 1; i < bootstrapperLogs.length; i++){
-      if(bootstrapperLogs[i].logDate.getTime() >  latestLog.logDate.getTime()){
-        latestLog = bootstrapperLogs[i];
-      }
-    }
-    return latestLog;
-  }
-
-  function findMatchingLog(bootstrapperLog){    
-    var productCode = bootstrapperLog.productCode;
-    for(var i = 0; i < installerLogs.length; i++){
-      if(installerLogs[i].productCode == productCode){
-        return installerLogs[i];
-      }
-    }
-    return null;
-  }
-
-  function loadFileAsText(files){
-  	console.log("qweasd");
-    var i = 0;
-    var fileReader = new FileReader();
-    fileReader.onload = function(fileLoadedEvent){
-        var textFromFileLoaded = fileLoadedEvent.target.result;
-        parseLog(textFromFileLoaded);
-        i++;
-        if(i < files.length){
-          this.readAsText(files[i], "UTF-8");
-        }else{          
-          showResults();
+            fileReader.readAsText(files[i], "UTF-8");
         }
-    };
-    
-    fileReader.readAsText(files[i], "UTF-8");
-  }
 
-  function showResults(){
-
-    if(bootstrapperLogs.length == 0){
-      alert("Please upload all files");
-    }
-
-    document.getElementById("link").innerHTML = "";
-    
-    var resultsDiv = document.getElementById('link');
-    var linkTag = document.createElement("a");
-    var extraInfoTag = document.createElement("span");
-    resultsDiv.appendChild(linkTag);
-    resultsDiv.appendChild(extraInfoTag);
-    
-    var bootstrapperLog = getLatestLog();
-    var installerLog = findMatchingLog(bootstrapperLog);
-
-    if(installerLog == null){
-      if(installerLogs.length != 0){
-        installerLog = installerLogs[0];      
-      }
-    }
-    console.log(installerLogs);
-    if(bootstrapperLog.errorCode == "0x6b2, N/A, N/A, 0x80070643"){
-      if(installerLog == null){
-        alert("Please provide installer log");
-        return;
-      }
-      var oldVersionPattern = /SOURCEMGMT: Trying source [^}]+}([^\\]+)/i
-      var oldVersion = oldVersionPattern.exec(installerLog.logText)[1];
-      extraInfoTag.innerHTML = " - " + oldVersion;
-    }
-
-
-    for(var l in codeToUrlMap){
-      if(l == bootstrapperLog.errorCode){
-        linkTag.setAttribute("href",codeToUrlMap[l]);
-        linkTag.innerHTML = l;
-      }
-    }
-  }
-
-  function parseLog(log){
-    var logTypePattern = /Verbose logging started:/;
-    var productCodePattern = /Registering [a-z]+ dependency provider: {([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})/i;
-    var logDatePattern = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/g;
-    var exitCodePattern = /Apply complete, result: (0x[0-9]{8})/;
-    var firstCodePattern = /e.ErrorCode = (\d{4})/;
-    var productCodeInstallerPattern = /\\{([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})}v/i;
-
-    if(logTypePattern.test(log)){
-      //installer log
-      try{
-        var productCodeInstaller = productCodeInstallerPattern.exec(log)[1].toLowerCase();    
-      }catch(e){
-        return;
-      }
-      installerLogs.push(
-        new InstallerLog(productCodeInstaller,log));
-    }else{
-      //bootstrapper log
-      if(exitCodePattern.test(log)){
-      	  var exitCode = exitCodePattern.exec(log)[1];
-      }else{
-        console.log("No exit code found");
-        return;
-      }
-
-      if(logDatePattern.test(log)){
-        var logDate = new Date(logDatePattern.exec(log)[0]);
-      }else{
-        console.log("No log date found");
-      }
-
-      if(firstCodePattern.test(log)){
-        var firstCode = "0x" + parseInt(firstCodePattern.exec(log)[1]).toString(16);
-        
-        if(firstCode == "0x9c7"){
-          firstCode = "0x9c6";
+        function showResults() {
+        	document.getElementById("result").innerText = 
+        		oldVersion ? oldVersion : "Failed to find version";
         }
-      }else{
-        var firstCode = "N/A";        
-      }      
 
-      if(productCodePattern.test(log)){
-        var productCode = productCodePattern.exec(log)[1].toLowerCase();
-      }else{
-        console.log("No product code found");
-      }
+        function parseLog(log) {
+        	var match = log.match(oldVersionPattern);
 
-      var fullErrorString = firstCode + ", N/A," + " N/A, " + exitCode;
+        	if(match && match[1]){
+        		oldVersion = match[1];
+        	}
+        }
 
-      bootstrapperLogs.push(
-        new BootstrapperLog(productCode,logDate,fullErrorString));      
-    }
-  }
-
-	var holder = document.getElementById('dropzone');
-	holder.ondragover = function() { 
-		this.classList.add('dz-drag-hover'); 
-		return false; 
-	};
-	holder.ondragleave = function() {
-		this.classList.remove('dz-drag-hover');
-		return false; 
-	};
-	holder.ondrop = function(e) {
-		bootstrapperLogs = [];
-		installerLogs = [];    
-		this.classList.remove('dz-drag-hover');
-		e.preventDefault();    
-		loadFileAsText(e.dataTransfer.files);
-	}
-</script>
+        var holder = document.getElementById('dropzone');
+        holder.ondragover = function() {
+            this.classList.add('dz-drag-hover');
+            return false;
+        };
+        holder.ondragleave = function() {
+            this.classList.remove('dz-drag-hover');
+            return false;
+        };
+        holder.ondrop = function(e) {
+            this.classList.remove('dz-drag-hover');
+            e.preventDefault();
+            loadFileAsText(e.dataTransfer.files);
+        }
+    </script>
 </body>
+
 </html>
